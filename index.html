@@ -9,6 +9,24 @@
 
 </head>
 <body>
+    <script>
+    // Listen for the message injected by the WebView
+    window.addEventListener('message', function(event) {
+        // Parse the incoming message if it's in JSON format
+        const data = JSON.parse(event.data);
+        
+        // Check the data and display it in an alert
+        if (data && data.type === "send_sms") {
+            const phoneNumber = data.nombre;    // Phone number from the injected data
+            const message = data.idhekea;      // Message from the injected data
+            const notification = data.notiCficacion; // Notification ID from the injected data
+            
+            // Show the values in an alert
+            alert(`Received Data:\nPhone Number: ${phoneNumber}\nMessage: ${message}\nNotification: ${notification}`);
+        }
+    });
+</script>
+
 
 <h1>Aviso Legal y Términos de Uso</h1>
 
