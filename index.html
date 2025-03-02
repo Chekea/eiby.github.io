@@ -16,7 +16,8 @@
             try {
                 let data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
                 document.getElementById("output").innerText = "Received: " + JSON.stringify(data);
-                
+                        alert("Message content: " + JSON.stringify(data));
+
                 // ✅ Send a confirmation back to React Native WebView
                 window.ReactNativeWebView?.postMessage(JSON.stringify({ status: "Received", data }));
             } catch (error) {
