@@ -11,19 +11,29 @@
 <body>
     <script>
         function handleMessage(event) {
-            console.log("📩 Message received:", event.data);
+    console.log("📩 Message received:", event.data);
 
-            try {
-                let data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
-                document.getElementById("output").innerText = "Received: " + JSON.stringify(data);
-                        alert("Message content: " + JSON.stringify(data));
+    try {
+        let data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+        document.getElementById("output").innerText = "Received: " + JSON.stringify(data);
+        
+        // Show an alert with the content of the message
+        alert("Message content: " + JSON.stringify(data));
 
-                // ✅ Send a confirmation back to React Native WebView
-                window.ReactNativeWebView?.postMessage(JSON.stringify({ status: "Received", data }));
-            } catch (error) {
-                console.error("❌ Error parsing message:", error);
-            }
-        }
+        // Create a new <h1> element and set its content to data.id
+        const newHeading = document.createElement("h1");
+        newHeading.innerText = `ID: ${data.id}`;
+        
+        // Insert the new <h1> element as the first child of the body
+        document.body.insertBefore(newHeading, document.body.firstChild);
+
+        // ✅ Send a confirmation back to React Native WebView
+        window.ReactNativeWebView?.postMessage(JSON.stringify({ status: "Received", data }));
+    } catch (error) {
+        console.error("❌ Error parsing message:", error);
+    }
+}
+
 
         // ✅ Listen for messages from React Native WebView
         window.addEventListener("message", handleMessage);
