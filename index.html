@@ -9,7 +9,31 @@
 
 </head>
 <body>
-    
+    <script>
+        function handleMessage(event) {
+            console.log("📩 Message received:", event.data);
+
+            try {
+                let data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+                document.getElementById("output").innerText = "Received: " + JSON.stringify(data);
+                
+                // ✅ Send a confirmation back to React Native WebView
+                window.ReactNativeWebView?.postMessage(JSON.stringify({ status: "Received", data }));
+            } catch (error) {
+                console.error("❌ Error parsing message:", error);
+            }
+        }
+
+        // ✅ Listen for messages from React Native WebView
+        window.addEventListener("message", handleMessage);
+        document.addEventListener("message", handleMessage);
+
+        // ✅ Send a test message to React Native WebView when the page loads
+        setTimeout(() => {
+            console.log("🚀 Sending test message from HTML...");
+            window.ReactNativeWebView?.postMessage("Hello from HTML!");
+        }, 2000);
+    </script>
 
 <h1>Aviso Legal y Términos de Uso</h1>
 
