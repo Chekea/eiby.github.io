@@ -4,76 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Términos y Condiciones</title>
-    <!-- Add any additional meta tags, styles, or scripts here -->
     <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
 
 <h1>Aviso Legal y Términos de Uso</h1>
 
-<h2>1. Identificación del Responsable</h2>
-<p>
-    En cumplimiento con la normativa vigente, se informa a los usuarios que el titular de la plataforma <strong>Chekea</strong> es <strong>CHEKEAGROUP</strong>, con domicilio en Guinea Ecuatorial y correo electrónico de contacto <strong>Chekeagroup@gmail.com</strong>.
-</p>
+<!-- Debug Section -->
+<h2>📡 Datos Recibidos desde WebView:</h2>
+<div id="debug" style="border: 1px solid black; padding: 10px; background-color: #f9f9f9;">
+    <p><strong>Esperando datos...</strong></p>
+</div>
 
-<h2>2. Aceptación de los Términos</h2>
-<p>
-    Al acceder o utilizar Chekea, incluyendo cualquier servicio o contenido proporcionado a través de la plataforma, el usuario acepta cumplir y quedar sujeto a los presentes Términos y Condiciones de Uso. Si no está de acuerdo con los mismos, debe abstenerse de utilizar la plataforma.
-</p>
+<script>
+    function handleMessage(event) {
+        console.log("📩 Mensaje recibido:", event.data);
 
-<h2>3. Cuentas de Usuario</h2>
-<p>
-    a. Para acceder a ciertas funciones de Chekea, es necesario crear una cuenta. El usuario se compromete a proporcionar información veraz, actualizada y completa durante el registro y a mantenerla actualizada en todo momento.
-    <br> b. El usuario es responsable de la confidencialidad de su cuenta y contraseña, así como de todas las actividades realizadas bajo su cuenta.
-</p>
+        try {
+            // Parse received data
+            const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
 
-<h2>4. Pedidos y Pagos</h2>
-<p>
-    a. Al realizar un pedido en Chekea, el usuario acepta proporcionar información precisa sobre su compra y asumir la responsabilidad de todos los cargos incurridos bajo su cuenta.
-    <br> b. Todas las transacciones de pago se realizan de manera segura a través de <strong>DJUVANA.COM</strong>.
-</p>
+            // Update debug section
+            document.getElementById("debug").innerHTML = "<strong>Mensaje recibido:</strong> " + JSON.stringify(data);
 
-<h2>5. Sistema de Referidos (Descuentos)</h2>
-<p>
-    a. El sistema de referidos permite a los usuarios obtener descuentos adicionales al invitar a otras personas a registrarse en la plataforma.
-    <br> b. Cuando un usuario comparte su código de referencia y otra persona lo utiliza para registrarse, el usuario que realizó la invitación gana un referido en su lista, lo que posteriormente se traduce en descuentos acumulables.
-    <br> c. La persona que se registra con un código de referencia recibe un <strong>3% de descuento adicional</strong> al <strong>5%</strong> que la plataforma otorga a todos los nuevos usuarios, obteniendo así un <strong>8% de descuento</strong> en su primera compra.
-    <br> d. Los códigos de referencia tienen una validez de <strong>20 minutos</strong> desde el momento en que se generan. Si no se utilizan dentro de este plazo, el usuario que los ingrese no recibirá el beneficio adicional y el referido no se sumará a la lista del invitador.
-</p>
+            // Store data in sessionStorage
+            sessionStorage.setItem("webViewData", JSON.stringify(data));
+        } catch (error) {
+            console.error("❌ Error al procesar el mensaje:", error);
+        }
+    }
 
-<h2>6. Propiedad Intelectual</h2>
-<p>
-    a. Todo el contenido, marcas comerciales, logotipos y demás elementos de propiedad intelectual en Chekea son propiedad exclusiva o están licenciados por <strong>CHEKEAGROUP</strong>. No está permitido utilizar, reproducir o distribuir ningún contenido sin autorización previa.
-</p>
+    // ✅ Works for Android WebView
+    window.addEventListener("message", handleMessage);
 
-<h2>7. Política de Privacidad y Protección de Datos</h2>
-<p>
-    a. Chekea recopila y procesa datos personales con el fin de mejorar la experiencia del usuario y ofrecer un servicio eficiente. La información proporcionada se almacena de manera segura y no se comparte con terceros sin consentimiento expreso.
-    <br> b. El usuario tiene derecho a acceder, rectificar y eliminar sus datos personales, conforme a la normativa de protección de datos vigente. Para ejercer estos derechos, puede contactarnos en <strong>Chekeagroup@gmail.com</strong>.
-</p>
-
-<h2>8. Modificación de los Términos y Condiciones</h2>
-<p>
-    a. Chekea se reserva el derecho de modificar en cualquier momento los presentes términos y condiciones. Cualquier cambio será publicado en la plataforma y, en caso de modificaciones sustanciales, se notificará a los usuarios registrados.
-</p>
-
-<h2>9. Limitación de Responsabilidad</h2>
-<p>
-    a. Chekea y sus afiliados no serán responsables de daños directos, indirectos, incidentales, consecuentes o punitivos derivados del uso indebido de la plataforma o de la cuenta del usuario.
-</p>
-
-<h2>10. Legislación Aplicable y Jurisdicción</h2>
-<p>
-    a. Estos términos se rigen por la legislación aplicable en Guinea Ecuatorial. Cualquier disputa que surja en relación con los mismos será sometida a la jurisdicción de los tribunales competentes de dicha jurisdicción.
-</p>
-
-<p>Para cualquier duda o consulta, puedes contactarnos a través de <strong>Chekeagroup@gmail.com</strong>.</p>
-
-<p>Gracias por confiar en <strong>Chekea</strong>.</p>
-
-
-    <!-- Add any additional content, such as links or images, as needed -->
+    // ✅ Works for iOS WebView
+    document.addEventListener("message", handleMessage);
+</script>
 
 </body>
 </html>
+
